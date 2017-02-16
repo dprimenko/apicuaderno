@@ -13,6 +13,9 @@ $app->get('/', function($request,$response) {
 		</body>
 	</html>
 	';
+
+	$body = $response->getBody();
+	$body->write($welcome);
 });
 
 $app->get('/alumnos', function($request, $response) {
