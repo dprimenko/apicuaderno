@@ -1,5 +1,20 @@
 <?php
 
+$app->get('/', function($request,$response) {
+	$welcome = '
+	<html>
+		<head>
+			<meta charset="utf8" />
+			<title>API Cuaderno - David Primenko</title>
+		</head>
+		<body>
+			<h1>API Cuaderno - David Primenko</h1>
+			<p>Api que brinda información de la clase</p>
+		</body>
+	</html>
+	';
+});
+
 $app->get('/alumnos', function($request, $response) {
 
 	$result = new AlumnosResult();
