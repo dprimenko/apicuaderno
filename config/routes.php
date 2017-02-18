@@ -110,8 +110,7 @@ $app->put('/alumno/[{id}]', function($request, $response, $args) {
 		$result->setMessage("Error: ".$e->getMessage());
 	}
 
-	return $input['nombre']."->".$input['apellidos'];
-	//return $this->response->withJson($result).$input['nombre'];
+	return $this->response->withJson($result);
 });
 
 $app->delete('/alumno/[{id}]', function($request, $response, $args) {
