@@ -20,6 +20,7 @@ class AlumnosResult {
 	var $status;
 	var $message;
 	var $alumnos;
+	var $inserted;
 
 	function getCode() {
 		return $this->code;
@@ -31,6 +32,10 @@ class AlumnosResult {
 
 	function getMessage() {
 		return $this->message;
+	}
+
+	function getInserted() {
+		return $this->inserted;
 	}
 
 	function getAlumnos() {
@@ -52,5 +57,10 @@ class AlumnosResult {
 	function setAlumnos($a) {
 		$this->alumnos = $a;
 	}
+
+	function setInserted($i) {
+		$this->inserted = $i;
+	}
+
 }
 ?>
