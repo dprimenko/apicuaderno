@@ -60,7 +60,7 @@ $app->post('/alumno', function($request, $response) {
 		$statement->bindParam(":email", $input['email']);
 
 		$statement->execute();
-		$inserted = $dbquery->rowCount();
+		$inserted = $statement->rowCount();
 
 		if ($inserted > 0) {
 			$result->setCode(200);
