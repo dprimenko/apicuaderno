@@ -18,9 +18,11 @@ class AlumnosResult {
 
 	var $code;
 	var $status;
-	var $message;
+	var $message = "No message";
 	var $alumnos;
-	var $inserted;
+	var $inserted = 0;
+	var $updated = 0;
+	var $deleted = 0;
 
 	function getCode() {
 		return $this->code;
@@ -36,6 +38,14 @@ class AlumnosResult {
 
 	function getInserted() {
 		return $this->inserted;
+	}
+
+	function getUpdated() {
+		return $this->updated;
+	}
+
+	function getDeleted() {
+		return $this->deleted;
 	}
 
 	function getAlumnos() {
@@ -61,6 +71,16 @@ class AlumnosResult {
 	function setInserted($i) {
 		$this->inserted = $i;
 	}
+
+	function setUpdated($u) {
+		$this->updated = $u;
+	}
+
+	function setDeleted($d) {
+		$this->deleted = $d;
+	}
+
+
 
 }
 ?>

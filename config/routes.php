@@ -69,9 +69,74 @@ $app->post('/alumno', function($request, $response) {
 		}
 
 	} catch(PDOException $e) {
-		$result->setCode(200);
-		$result->setStatus(OK);
-		$result->setInserted($inserted);
+		$result->setCode(300);
+		$result->setStatus(CONFLICT);
+		$result->setMessage("Error: ".$e->getMessage());
+	}
+
+	return $this->response->withJson($result);
+});
+
+$app->put('/alumno/[{id}]', function($request, $response, $args) {
+
+	$result = new AlumnosResult();
+
+	try {
+
+		$input = $request->getParsedBody();
+
+		$statement = $this->db->prepare("UPDATE ".TABLE_ALUMNOS." SET nombre = :nombre, apellidos = :apellidos, direccion = :direccion, ciudad = :ciudad, cp = :cp, telefono = :telefono, email = :email WHERE id = :id");
+		$statement->bindParam(":nombre", $input['nombre']);
+		$statement->bindParam(":apellidos", $input['apellidos']);
+		$statement->bindParam(":direccion", $input['direccion']);
+		$statement->bindParam(":ciudad", $input['ciudad']);
+		$statement->bindParam(":cp", $input['cp']);
+		$statement->bindParam(":telefono", $input['telefono']);
+		$statement->bindParam(":email", $input['email']);
+		$statement->bindParam(":id", $args['id']);
+
+		$statement->execute();
+		$updated = $statement->rowCount();
+
+		if ($updated > 0) {
+			$result->setCode(200);
+			$result->setStatus(OK);
+			$result->setUpdated($updated);
+		}
+
+	} catch(PDOException $e) {
+		$result->setCode(300);
+		$result->setStatus(CONFLICT);
+		$result->setMessage("Error: ".$e->getMessage());
+	}
+
+	return $this->response->withJson($result);
+});
+
+$app->delete('/alumno/[{id}]', function($request, $response, $args) {
+
+	$result = new AlumnosResult();
+
+	try {
+
+		$input = $request->getParsedBody();
+
+		$statement = $this->db->prepare("DELETE FROM ".TABLE_ALUMNOS." WHERE id = :id");
+		$statement->bindParam(":id", $args['id']);
+
+		$statement->execute();
+		$deleted = $statement->rowCount();
+
+		if ($deleted > 0) {
+			$result->setCode(200);
+			$result->setStatus(OK);
+			$result->setUpdated($deleted);
+		}
+
+	} catch(PDOException $e) {
+		$result->setCode(300);
+		$result->setStatus(CONFLICT);
+		$result->setMessage("Error: ".$e->getMessage());
 	}
 
 	return $this->response->withJson($result);
