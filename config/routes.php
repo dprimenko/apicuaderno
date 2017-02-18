@@ -130,7 +130,7 @@ $app->delete('/alumno/[{id}]', function($request, $response, $args) {
 		if ($deleted > 0) {
 			$result->setCode(200);
 			$result->setStatus(OK);
-			$result->setUpdated($deleted);
+			$result->setDeleted($deleted);
 		}
 
 	} catch(PDOException $e) {
