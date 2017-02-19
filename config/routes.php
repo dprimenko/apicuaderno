@@ -142,4 +142,93 @@ $app->delete('/alumno/[{id}]', function($request, $response, $args) {
 	return $this->response->withJson($result);
 });
 
+$app->post('/manager', function($request, $response) {
+
+	$result = new ManagerResult();
+
+	try {
+
+		$input = $request->getParsedBody();
+
+		$statement = $this->db->prepare("INSERT INTO ".TABLE_MANAGER."(fecha, idAlumno, idFalta, idTrabajo, observacion) VALUES(:fecha, :idAlumno, :idFalta, :idTrabajo, :observacion)");
+		$statement->bindParam(":fecha", $input['fecha']);
+		$statement->bindParam(":idAlumno", $input['idAlumno']);
+		$statement->bindParam(":idFalta", $input['idFalta']);
+		$statement->bindParam(":idTrabajo", $input['idTrabajo']);
+		$statement->bindParam(":observacion", $input['observacion']);
+
+		$statement->execute();
+		$inserted = $statement->rowCount();
+
+		if ($inserted > 0) {
+			$result->setCode(200);
+			$result->setStatus(OK);
+			$result->setInserted($inserted);
+		}
+
+	} catch(PDOException $e) {
+		$result->setCode(300);
+		$result->setStatus(CONFLICT);
+		$result->setMessage("Error: ".$e->getMessage());
+	}
+
+	return $this->response->withJson($result);
+});
+
+$app->post('/manager/getmng', function($request, $response, $args) {
+
+	$result = new ManagerResult();
+
+	try {
+
+		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE fecha = ".$args['fecha']);
+		$statement->execute();
+		$manager = $statement->fetchAll();
+
+		$result->setCode(200);
+		$result->setStatus(OK);
+		$result->setManager($manager);
+
+
+	} catch (PDOException $e) {
+		$result->setCode(300);
+		$result->setStatus(CONFLICT);
+		$result->setMessage("Error: ".$e->getMessage());
+	}
+
+	return $this->response->withJson($result);
+});
+
+$app->put('/manager/updatemng', function($request, $response, $args) {
+
+	$result = new ManagerResult();
+
+	try {
+
+		$input = $request->getParsedBody();
+
+		$statement = $this->db->prepare("UPDATE ".TABLE_MANAGER." SET idFalta = :idFalta, idTrabajo = :idTrabajo, observacion = :observacion WHERE AND fecha = :fecha");
+		$statement->bindParam(":fecha", $input['fecha']);
+		$statement->bindParam(":idFalta", $input['idFalta']);
+		$statement->bindParam(":idTrabajo", $input['idTrabajo']);
+		$statement->bindParam(":observacion", $input['observacion']);
+
+		$statement->execute();
+		$updated = $statement->rowCount();
+
+		if ($updated > 0) {
+			$result->setCode(200);
+			$result->setStatus(OK);
+			$result->setUpdated($updated);
+		}
+
+	} catch(PDOException $e) {
+		$result->setCode(300);
+		$result->setStatus(CONFLICT);
+		$result->setMessage("Error: ".$e->getMessage());
+	}
+
+	return $this->response->withJson($result);
+});
+
 ?>
