@@ -188,7 +188,7 @@ $app->post('/manager/getmng', function($request, $response, $args) {
 
 		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE fecha = \"".$input['fecha']."\"");
 		$statement->execute();
-		$manager = $statement->fetchColumn();
+		$manager = $statement->fetch();
 
 		$result->setCode(200);
 		$result->setStatus(OK);
