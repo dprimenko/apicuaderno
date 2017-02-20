@@ -42,6 +42,30 @@ $app->get('/alumnos', function($request, $response) {
 	return $this->response->withJson($result);
 });
 
+$app->get('/alumno/[{id}]', function($request, $response) {
+
+	$result = new AlumnosResult();
+
+	try {
+
+		$statement = $this->db->prepare("SELECT * FROM ".TABLE_ALUMNOS."WHERE id = ".$args['id']);
+		$statement->execute();
+		$alumnos = $statement->fetch();
+
+		$result->setCode(200);
+		$result->setStatus(OK);
+		$result->setAlumnos($alumnos);
+
+
+	} catch (PDOException $e) {
+		$result->setCode(300);
+		$result->setStatus(CONFLICT);
+		$result->setMessage("Error: ".$e->getMessage());
+	}
+
+	return $this->response->withJson($result);
+});
+
 $app->post('/alumno', function($request, $response) {
 
 	$result = new AlumnosResult();
