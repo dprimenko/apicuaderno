@@ -182,6 +182,8 @@ $app->post('/manager/getmng', function($request, $response, $args) {
 	try {
 		$input = $request->getParsedBody();
 
+		$fecha = trim($input['fecha']);
+
 		echo "SELECT * FROM ".TABLE_MANAGER." WHERE fecha = ".$input['fecha'];
 
 		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE fecha = ".$input['fecha']);
