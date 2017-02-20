@@ -90,6 +90,7 @@ class ManagerResult {
 	var $inserted = 0;
 	var $updated = 0;
 	var $deleted = 0;
+	var $idStudent;
 
 	function getCode() {
 		return $this->code;
@@ -119,6 +120,10 @@ class ManagerResult {
 		return $this->manager;
 	}
 
+	function getRequestedStudent() {
+		return $this->idStudent;
+	}
+
 	function setCode($c) {
 		$this->code = $c;
 	}
@@ -145,6 +150,10 @@ class ManagerResult {
 
 	function setDeleted($d) {
 		$this->deleted = $d;
+	}
+
+	function setRequestedStudent($i) {
+		$this->idStudent = $i;
 	}
 
 }

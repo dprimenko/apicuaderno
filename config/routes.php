@@ -241,6 +241,7 @@ $app->post('/manager/getmng/[{id}]', function($request, $response, $args) {
 
 		$result->setCode(200);
 		$result->setStatus(OK);
+		$result->setRequestedStudent($args['id']);
 		$result->setManager($manager);
 
 
