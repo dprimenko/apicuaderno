@@ -183,7 +183,7 @@ $app->post('/manager/getmng', function($request, $response, $args) {
 		$input = $request->getParsedBody();
 		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE fecha = ".$input['fecha']);
 		$statement->execute();
-		$manager = $statement->fetchAll();
+		$manager = $statement->fetchColumn();
 
 		$result->setCode(200);
 		$result->setStatus(OK);
