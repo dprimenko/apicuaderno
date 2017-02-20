@@ -48,7 +48,7 @@ $app->get('/alumno/[{id}]', function($request, $response) {
 
 	try {
 
-		$statement = $this->db->prepare("SELECT * FROM ".TABLE_ALUMNOS."WHERE id = ".$args['id']);
+		$statement = $this->db->prepare("SELECT nombre, apellidos FROM ".TABLE_ALUMNOS."WHERE id = ".$args['id']);
 		$statement->execute();
 		$alumnos = $statement->fetch();
 
