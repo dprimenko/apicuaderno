@@ -1,6 +1,5 @@
 <?php
 
-header('Content-type: application/json;charset=utf8');
 require_once('phpmailer524/class.phpmailer.php');
 //include("class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
 
