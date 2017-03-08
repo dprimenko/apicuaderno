@@ -276,7 +276,7 @@ $app->post('/manager/getmng', function($request, $response) {
 	return $this->response->withJson($result);
 });
 
-$app->get('/manager[/{id}[/{fecha}]]', function($request, $response, $args) {
+$app->get('/manager/[{id}[/{fecha}]]', function($request, $response, $args) {
 
 	$result = new ManagerResult();
 
