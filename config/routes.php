@@ -231,7 +231,7 @@ $app->get('/manager/[{fecha}]', function($request, $response, $args) {
 	try {
 		//$fecha = trim((string)$args['fecha']);
 
-		$sql = "SELECT * FROM ".TABLE_MANAGER." WHERE fecha = ".$args['fecha'];
+		$sql = "SELECT * FROM ".TABLE_MANAGER." WHERE fecha = \"".$args['fecha']."\"";
 		$result->setSql($sql);
 		$statement = $this->db->prepare($sql);
 		$statement->execute();
