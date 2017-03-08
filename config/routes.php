@@ -229,10 +229,7 @@ $app->get('/manager/[{fecha}]', function($request, $response, $args) {
 	$result = new ManagerResult();
 
 	try {
-		//$fecha = trim((string)$args['fecha']);
-
 		$sql = "SELECT * FROM ".TABLE_MANAGER." WHERE fecha = \"".$args['fecha']."\"";
-		$result->setSql($sql);
 		$statement = $this->db->prepare($sql);
 		$statement->execute();
 		$manager = $statement->fetchAll();
@@ -279,7 +276,7 @@ $app->post('/manager/getmng', function($request, $response) {
 	return $this->response->withJson($result);
 });
 
-$app->post('/manager/getmng/[{id}]', function($request, $response, $args) {
+$app->post('/manager[/{id}[/{fecha}]]', function($request, $response, $args) {
 
 	$result = new ManagerResult();
 
@@ -288,7 +285,7 @@ $app->post('/manager/getmng/[{id}]', function($request, $response, $args) {
 
 		$fecha = trim((string)$input['fecha']);
 
-		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE idAlumno = \"".$args['id']."\" AND fecha = \"".$input['fecha']."\"");
+		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE idAlumno = \"".$args['id']."\" AND fecha = \"".$args['fecha']."\"");
 		$statement->execute();
 		$manager = $statement->fetch();
 
