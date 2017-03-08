@@ -228,9 +228,13 @@ $app->get('/manager[/{fecha}[/{id}]]', function($request, $response, $args) {
 	$result = new ManagerResult();
 
 	try {
-		$fecha = trim((string)$input['fecha']);
 
-		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE idAlumno = ".$args['id']." AND fecha = \"".$args['fecha']."\"");
+		if ($args['id'] == "") {
+			$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE fecha = \"".$args['fecha']."\"");
+		} else {
+			$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE idAlumno = ".$args['id']." AND fecha = \"".$args['fecha']."\"");
+		}
+		
 		$statement->execute();
 		$manager = $statement->fetch();
 
