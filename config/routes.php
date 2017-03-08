@@ -302,6 +302,7 @@ $app->post('/email', function($request, $response, $args) {
 	$mail = new PHPMailer(true);
 	// the true param means it will throw exceptions on errors, which we need to catch
 	$mail->IsSMTP(); // telling the class to use SMTP
+	$result->setMessage("Estamos in");
 
 	try {
 	 //$mail->SMTPDebug = 2; // enables SMTP debug information (for testing)
