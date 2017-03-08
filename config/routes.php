@@ -1,5 +1,9 @@
 <?php
 
+header('Content-type: application/json;charset=utf8');
+require_once('phpmailer524/class.phpmailer.php');
+//include("class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
+
 $app->get('/', function($request,$response) {
 	$welcome = '
 	<html>
@@ -282,6 +286,55 @@ $app->put('/manager/[{idAlumno}]', function($request, $response, $args) {
 	}
 
 	return $this->response->withJson($result);
+});
+
+$app->post('/email/[{address}]', function($request, $response, $args) {
+	
+	$result = new EmailResult();
+
+	$input = $request->getParsedBody();
+
+	$from = FROM;
+	$password = PASSWORD;
+	$to = $args['address'];
+	$subject = $input['subject'];
+	$message = $input['message'];
+	$mail = new PHPMailer(true);
+	// the true param means it will throw exceptions on errors, which we need to catch
+	$mail->IsSMTP(); // telling the class to use SMTP
+
+	try {
+	 //$mail->SMTPDebug = 2; // enables SMTP debug information (for testing)
+	 $mail->SMTPDebug = 0;
+	 $mail->SMTPAuth = true; // enable SMTP authentication
+	 $mail->SMTPSecure = "tls"; // sets the prefix to the server
+	 $mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
+	 //$mail->Host = "smtp.openmailbox.org";
+	 $mail->Port = 587; // set the SMTP port for the GMAIL server
+	 $mail->Username = $from; // GMAIL username
+	 $mail->Password = $password; // GMAIL password
+	 $mail->AddAddress($to); // Receiver email
+	 $mail->SetFrom($from, 'paco g.'); // email sender
+	 $mail->AddReplyTo($from, 'paco g'); // email to reply
+	 $mail->Subject = $subject; // subject of the message
+	 $mail->AltBody = 'Message in plain text'; // optional - MsgHTML will create an alternate automatically
+	 $mail->MsgHTML($message); // message in the email
+	 //$mail->AddAttachment('images/phpmailer.gif'); // attachment
+	 $mail->Send();
+	 $result->setCode(TRUE);
+	 $result->setMessage("Message Sent OK to " . $to);
+	 echo json_encode($result);
+	} catch (phpmailerException $e) {
+	 //echo $e->errorMessage(); //Pretty error messages from PHPMailer
+	 $result->setCode(FALSE);
+	 $result->setMessage("Error: " . $e->errorMessage());
+	 echo json_encode($result);
+	} catch (Exception $e) {
+	 //echo $e->getMessage(); //Boring error messages from anything else!
+	 $result->setCode(FALSE);
+	 $result->setMessage("Error: " . $e->getMessage());
+	 echo json_encode($result);
+	}
 });
 
 ?>
