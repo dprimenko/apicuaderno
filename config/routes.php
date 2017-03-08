@@ -1,6 +1,6 @@
 <?php
 
-require_once('phpmailer524/class.phpmailer.php');
+//require_once('phpmailer524/class.phpmailer.php');
 //include("class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
 
 $app->get('/', function($request,$response) {
@@ -287,6 +287,7 @@ $app->put('/manager/[{idAlumno}]', function($request, $response, $args) {
 	return $this->response->withJson($result);
 });
 
+/*
 $app->post('/email', function($request, $response, $args) {
 	
 	$result = new EmailResult();
@@ -332,5 +333,7 @@ $app->post('/email', function($request, $response, $args) {
 
 	return $this->response->withJson($result);
 });
+
+*/
 
 ?>
