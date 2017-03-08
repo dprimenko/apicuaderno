@@ -253,7 +253,7 @@ $app->get('/manager[/{fecha}[/{id}]]', function($request, $response, $args) {
 	return $this->response->withJson($result);
 });
 
-$app->put('/manager/[{id}]', function($request, $response, $args) {
+$app->put('/manager/[{idAlumno}]', function($request, $response, $args) {
 
 	$result = new ManagerResult();
 
@@ -261,7 +261,7 @@ $app->put('/manager/[{id}]', function($request, $response, $args) {
 
 		$input = $request->getParsedBody();
 
-		$sql = "UPDATE ".TABLE_MANAGER." SET idFalta = ".$input['idFalta'].", idTrabajo = ".$input['idTrabajo'].", observacion = ".$input['observacion']." WHERE idAlumno = ".$input['idAlumno']." AND fecha = \"".$input['fecha']."\"";
+		$sql = "UPDATE ".TABLE_MANAGER." SET idFalta = ".$input['idFalta'].", idTrabajo = ".$input['idTrabajo'].", observacion = \"".$input['observacion']."\" WHERE idAlumno = ".$args['idAlumno']." AND fecha = \"".$input['fecha']."\"";
 		$result->setSql($sql);
 
 		$statement = $this->db->prepare($sql);
