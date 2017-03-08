@@ -236,7 +236,7 @@ $app->get('/manager[/{fecha}[/{id}]]', function($request, $response, $args) {
 		}
 		
 		$statement->execute();
-		$manager = $statement->fetch();
+		$manager = $statement->fetchAll();
 
 		$result->setCode(200);
 		$result->setStatus(OK);
