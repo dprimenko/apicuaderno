@@ -13,7 +13,7 @@ define('OK', 200);
 define('NOT_COMPLETED', 202);
 define('CONFLICT', 409);
 
-define('FROM', "david47@gmail.com");
+define('FROM', "davidruso47@gmail.com");
 define('PASSWORD', "david4769");
 
 class AlumnosResult {
