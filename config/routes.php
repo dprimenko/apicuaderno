@@ -288,7 +288,7 @@ $app->put('/manager/[{idAlumno}]', function($request, $response, $args) {
 	return $this->response->withJson($result);
 });
 
-$app->post('/email/[{address}]', function($request, $response, $args) {
+$app->post('/email', function($request, $response, $args) {
 	
 	$result = new EmailResult();
 
@@ -296,7 +296,7 @@ $app->post('/email/[{address}]', function($request, $response, $args) {
 
 	$from = FROM;
 	$password = PASSWORD;
-	$to = $args['address'];
+	$to = $input['address'];
 	$subject = $input['subject'];
 	$message = $input['message'];
 	$mail = new PHPMailer(true);
@@ -314,8 +314,8 @@ $app->post('/email/[{address}]', function($request, $response, $args) {
 	 $mail->Username = $from; // GMAIL username
 	 $mail->Password = $password; // GMAIL password
 	 $mail->AddAddress($to); // Receiver email
-	 $mail->SetFrom($from, 'paco g.'); // email sender
-	 $mail->AddReplyTo($from, 'paco g'); // email to reply
+	 $mail->SetFrom($from, 'David Primenko'); // email sender
+	 $mail->AddReplyTo($from, 'David Primenko'); // email to reply
 	 $mail->Subject = $subject; // subject of the message
 	 $mail->AltBody = 'Message in plain text'; // optional - MsgHTML will create an alternate automatically
 	 $mail->MsgHTML($message); // message in the email
