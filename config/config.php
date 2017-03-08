@@ -84,7 +84,17 @@ class AlumnosResult {
 
 }
 
+class EmailResult {
+	var $message;
 
+	function getMessage() {
+		return $this->message;
+	}
+
+	function setMessage($m) {
+		$this->message = $m;
+	}
+}
 
 class ManagerResult {
 
