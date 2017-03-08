@@ -166,7 +166,7 @@ $app->delete('/alumno/[{id}]', function($request, $response, $args) {
 	return $this->response->withJson($result);
 });
 
-$app->post('/manager', function($request, $response) {
+$app->post('/managers', function($request, $response) {
 
 	$result = new ManagerResult();
 
@@ -199,7 +199,7 @@ $app->post('/manager', function($request, $response) {
 	return $this->response->withJson($result);
 });
 
-$app->get('/manager', function($request, $response) {
+$app->get('/managers', function($request, $response) {
 
 	$result = new ManagerResult();
 
@@ -222,7 +222,7 @@ $app->get('/manager', function($request, $response) {
 	return $this->response->withJson($result);
 });
 
-$app->get('/manager/[{fecha}]', function($request, $response, $args) {
+$app->get('/managers/[{fecha}]', function($request, $response, $args) {
 	$result = new ManagerResult();
 
 	try {
