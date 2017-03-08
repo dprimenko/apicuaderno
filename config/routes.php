@@ -42,7 +42,7 @@ $app->get('/alumnos', function($request, $response) {
 	return $this->response->withJson($result);
 });
 
-$app->get('/alumno/[{id}]', function($request, $response) {
+$app->get('/alumno/[{id}]', function($request, $response, $args) {
 
 	$result = new AlumnosResult();
 
