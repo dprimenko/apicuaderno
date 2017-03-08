@@ -204,7 +204,6 @@ $app->get('/manager', function($request, $response) {
 	$result = new ManagerResult();
 
 	try {
-		$input = $request->getParsedBody();
 
 		$fecha = trim((string)$input['fecha']);
 
@@ -226,8 +225,32 @@ $app->get('/manager', function($request, $response) {
 	return $this->response->withJson($result);
 });
 
-$app->post('/manager/getmng', function($request, $response) {
+$app->get('/manager/[{id}]', function($request, $response) {
+	$result = new ManagerResult();
 
+	try {
+		$fecha = trim((string)$args['fecha']);
+
+		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE fecha = \"".$fecha."\"");
+		$statement->execute();
+		$manager = $statement->fetchAll();
+
+		$result->setCode(200);
+		$result->setStatus(OK);
+		$result->setManager($manager);
+
+
+	} catch (PDOException $e) {
+		$result->setCode(300);
+		$result->setStatus(CONFLICT);
+		$result->setMessage("Error: ".$e->getMessage());
+	}
+
+	return $this->response->withJson($result);
+});
+
+
+$app->post('/manager/getmng', function($request, $response) {
 	$result = new ManagerResult();
 
 	try {
