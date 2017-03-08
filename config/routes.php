@@ -231,12 +231,14 @@ $app->get('/manager/[{fecha}]', function($request, $response) {
 	try {
 		$fecha = trim((string)$args['fecha']);
 
-		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE fecha = \"".$fecha."\"");
+		$sql = "SELECT * FROM ".TABLE_MANAGER." WHERE fecha = \"".$fecha."\"";
+		$statement = $this->db->prepare($sql);
 		$statement->execute();
 		$manager = $statement->fetchAll();
 
 		$result->setCode(200);
 		$result->setStatus(OK);
+		$result->setSql($sql);
 		$result->setManager($manager);
 
 

@@ -91,6 +91,7 @@ class ManagerResult {
 	var $updated = 0;
 	var $deleted = 0;
 	var $idStudent;
+	var $sql;
 
 	function getCode() {
 		return $this->code;
@@ -122,6 +123,14 @@ class ManagerResult {
 
 	function getRequestedStudent() {
 		return $this->idStudent;
+	}
+
+	function geSql() {
+		return $this->sql;
+	}
+
+	function setSql($s) {
+		$this->sql = $s;
 	}
 
 	function setCode($c) {
