@@ -321,17 +321,14 @@ $app->post('/email/[{address}]', function($request, $response, $args) {
 	 $mail->MsgHTML($message); // message in the email
 	 //$mail->AddAttachment('images/phpmailer.gif'); // attachment
 	 $mail->Send();
-	 $result->setCode(TRUE);
 	 $result->setMessage("Message Sent OK to " . $to);
 	 echo json_encode($result);
 	} catch (phpmailerException $e) {
 	 //echo $e->errorMessage(); //Pretty error messages from PHPMailer
-	 $result->setCode(FALSE);
 	 $result->setMessage("Error: " . $e->errorMessage());
 	 echo json_encode($result);
 	} catch (Exception $e) {
 	 //echo $e->getMessage(); //Boring error messages from anything else!
-	 $result->setCode(FALSE);
 	 $result->setMessage("Error: " . $e->getMessage());
 	 echo json_encode($result);
 	}
