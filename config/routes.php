@@ -276,13 +276,11 @@ $app->post('/manager/getmng', function($request, $response) {
 	return $this->response->withJson($result);
 });
 
-$app->post('/manager[/{id}[/{fecha}]]', function($request, $response, $args) {
+$app->get('/manager[/{id}[/{fecha}]]', function($request, $response, $args) {
 
 	$result = new ManagerResult();
 
 	try {
-		$input = $request->getParsedBody();
-
 		$fecha = trim((string)$input['fecha']);
 
 		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE idAlumno = \"".$args['id']."\" AND fecha = \"".$args['fecha']."\"");
