@@ -222,7 +222,7 @@ $app->get('/managers', function($request, $response) {
 	return $this->response->withJson($result);
 });
 
-$app->get('/managers/[{fecha}]', function($request, $response, $args) {
+$app->get('/manager/[{fecha}]', function($request, $response, $args) {
 	$result = new ManagerResult();
 
 	try {
@@ -247,7 +247,7 @@ $app->get('/managers/[{fecha}]', function($request, $response, $args) {
 });
 
 
-$app->get('/managers[/{id}[/{fecha}]]', function($request, $response, $args) {
+$app->get('/manager[/{id}[/{fecha}]]', function($request, $response, $args) {
 
 	$result = new ManagerResult();
 
@@ -273,7 +273,7 @@ $app->get('/managers[/{id}[/{fecha}]]', function($request, $response, $args) {
 	return $this->response->withJson($result);
 });
 
-$app->put('/managers/[{id}]', function($request, $response, $args) {
+$app->put('/manager/[{id}]', function($request, $response, $args) {
 
 	$result = new ManagerResult();
 
