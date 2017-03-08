@@ -261,13 +261,11 @@ $app->put('/manager/[{id}]', function($request, $response, $args) {
 
 		$input = $request->getParsedBody();
 
-		$statement = $this->db->prepare("UPDATE ".TABLE_MANAGER." SET idFalta = :idFalta, idTrabajo = :idTrabajo, observacion = :observacion WHERE id = :id AND fecha = \":fecha\"");
-		$statement->bindParam(":id", $args["id"]);
-		$statement->bindParam(":fecha", $input['fecha']);
-		$statement->bindParam(":idFalta", $input['idFalta']);
-		$statement->bindParam(":idTrabajo", $input['idTrabajo']);
-		$statement->bindParam(":observacion", $input['observacion']);
+		$sql = "UPDATE ".TABLE_MANAGER." SET idFalta = ".$input['idFalta'].", idTrabajo = ".$input['idTrabajo'].", observacion = ".$input['observacion']." WHERE idAlumno = ".$input['idAlumno']." AND fecha = \"".$input['fecha']."\"";
+		$result->setSql($sql);
 
+		$statement = $this->db->prepare($sql);
+		
 		$statement->execute();
 		$updated = $statement->rowCount();
 
