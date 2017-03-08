@@ -322,16 +322,15 @@ $app->post('/email', function($request, $response, $args) {
 	 //$mail->AddAttachment('images/phpmailer.gif'); // attachment
 	 $mail->Send();
 	 $result->setMessage("Message Sent OK to " . $to);
-	 return $this->response->withJson($result);
 	} catch (phpmailerException $e) {
 	 //echo $e->errorMessage(); //Pretty error messages from PHPMailer
 	 $result->setMessage("Error: " . $e->errorMessage());
-	 return $this->response->withJson($result);
 	} catch (Exception $e) {
 	 //echo $e->getMessage(); //Boring error messages from anything else!
-	 $result->setMessage("Error: " . $e->getMessage());
-	 return $this->response->withJson($result);
+	 $result->setMessage("Error: " . $e->getMessage());	 
 	}
+
+	return $this->response->withJson($result);
 });
 
 ?>
