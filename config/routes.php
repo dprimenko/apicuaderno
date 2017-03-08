@@ -229,9 +229,9 @@ $app->get('/manager/[{fecha}]', function($request, $response) {
 	$result = new ManagerResult();
 
 	try {
-		$fecha = trim((string)$args['fecha']);
+		//$fecha = trim((string)$args['fecha']);
 
-		$sql = "SELECT * FROM ".TABLE_MANAGER." WHERE fecha = \"".$fecha."\"";
+		$sql = "SELECT * FROM ".TABLE_MANAGER." WHERE fecha = ".$args['fecha'];
 		$statement = $this->db->prepare($sql);
 		$statement->execute();
 		$manager = $statement->fetchAll();
