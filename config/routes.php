@@ -225,7 +225,7 @@ $app->get('/manager', function($request, $response) {
 	return $this->response->withJson($result);
 });
 
-$app->get('/manager/[{fecha}]', function($request, $response) {
+$app->get('/manager/[{fecha}]', function($request, $response, $args) {
 	$result = new ManagerResult();
 
 	try {
