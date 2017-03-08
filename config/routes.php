@@ -204,10 +204,7 @@ $app->get('/manager', function($request, $response) {
 	$result = new ManagerResult();
 
 	try {
-
-		$fecha = trim((string)$input['fecha']);
-
-		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE fecha = \"".$input['fecha']."\"");
+		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER);
 		$statement->execute();
 		$manager = $statement->fetchAll();
 
@@ -250,32 +247,6 @@ $app->get('/manager/[{fecha}]', function($request, $response, $args) {
 });
 
 
-$app->post('/manager/getmng', function($request, $response) {
-	$result = new ManagerResult();
-
-	try {
-		$input = $request->getParsedBody();
-
-		$fecha = trim((string)$input['fecha']);
-
-		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE fecha = \"".$input['fecha']."\"");
-		$statement->execute();
-		$manager = $statement->fetchAll();
-
-		$result->setCode(200);
-		$result->setStatus(OK);
-		$result->setManager($manager);
-
-
-	} catch (PDOException $e) {
-		$result->setCode(300);
-		$result->setStatus(CONFLICT);
-		$result->setMessage("Error: ".$e->getMessage());
-	}
-
-	return $this->response->withJson($result);
-});
-
 $app->get('/managers[/{id}[/{fecha}]]', function($request, $response, $args) {
 
 	$result = new ManagerResult();
@@ -283,7 +254,7 @@ $app->get('/managers[/{id}[/{fecha}]]', function($request, $response, $args) {
 	try {
 		$fecha = trim((string)$input['fecha']);
 
-		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE idAlumno = \"".$args['id']."\" AND fecha = \"".$args['fecha']."\"");
+		$statement = $this->db->prepare("SELECT * FROM ".TABLE_MANAGER." WHERE idAlumno = ".$args['id']." AND fecha = \"".$args['fecha']."\"");
 		$statement->execute();
 		$manager = $statement->fetch();
 
@@ -302,7 +273,7 @@ $app->get('/managers[/{id}[/{fecha}]]', function($request, $response, $args) {
 	return $this->response->withJson($result);
 });
 
-$app->put('/manager/updatemng', function($request, $response, $args) {
+$app->put('/managers/[{id}]', function($request, $response, $args) {
 
 	$result = new ManagerResult();
 
@@ -310,7 +281,8 @@ $app->put('/manager/updatemng', function($request, $response, $args) {
 
 		$input = $request->getParsedBody();
 
-		$statement = $this->db->prepare("UPDATE ".TABLE_MANAGER." SET idFalta = :idFalta, idTrabajo = :idTrabajo, observacion = :observacion WHERE AND fecha = :fecha");
+		$statement = $this->db->prepare("UPDATE ".TABLE_MANAGER." SET idFalta = :idFalta, idTrabajo = :idTrabajo, observacion = :observacion WHERE id = :id AND fecha = \":fecha\"");
+		$statement->bindParam(":id", $args["id"]);
 		$statement->bindParam(":fecha", $input['fecha']);
 		$statement->bindParam(":idFalta", $input['idFalta']);
 		$statement->bindParam(":idTrabajo", $input['idTrabajo']);
