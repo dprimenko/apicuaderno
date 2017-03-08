@@ -293,8 +293,8 @@ $app->post('/email', function($request, $response, $args) {
 
 	$input = $request->getParsedBody();
 
-	$from = "davidruso47@gmail.com";
-	$password = "david4769";
+	$from = FROM;
+	$password = PASSWORD;
 	$to = $input['address'];
 	$subject = $input['subject'];
 	$message = $input['message'];
