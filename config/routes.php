@@ -332,5 +332,6 @@ $app->post('/email', function($request, $response, $args) {
 	}
 
 	return $this->response->withJson($result);
+});
 
 ?>
