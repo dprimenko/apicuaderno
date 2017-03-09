@@ -295,6 +295,10 @@ $app->post('/email', function($request, $response, $args) {
 
 	$from = FROM;
 	$password = PASSWORD;
+
+	$result->setAddress(FROM);
+	$result->setPassword(FROM);
+
 	$to = $input['address'];
 	$subject = $input['subject'];
 	$message = $input['message'];
