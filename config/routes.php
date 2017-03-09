@@ -1,7 +1,7 @@
 <?php
 
-require './phpmailer524/class.phpmailer.php';
-require './phpmailer524/class.smtp.php';
+require_once('./phpmailer524/class.phpmailer.php');
+require_once('./phpmailer524/class.smtp.php');
 
 $app->get('/', function($request,$response) {
 	$welcome = '
