@@ -2,7 +2,7 @@
 
 //require 'phpmailer524/class.phpmailer.php';
 //require 'phpmailer524/class.smtp.php';
-include("class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
+include("phpmailer524/class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
 
 $app->get('/', function($request,$response) {
 	$welcome = '
