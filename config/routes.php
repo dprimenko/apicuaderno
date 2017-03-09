@@ -313,7 +313,7 @@ $app->post('/email', function($request, $response, $args) {
 	 $mail->Port = 587; // set the SMTP port for the GMAIL server
 	 $mail->Username = $from; // GMAIL username
 	 $mail->Password = $password; // GMAIL password
-	 $mail->IsSendmail();
+	 //$mail->IsSendmail();
 	 $mail->AddAddress($to); // Receiver email
 	 $mail->AddReplyTo($from, 'David Primenko'); // email to reply
 	 $mail->Subject = $subject; // subject of the message
