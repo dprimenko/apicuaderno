@@ -1,7 +1,7 @@
 <?php
 
-//require 'phpmailer524/class.phpmailer.php';
-//require 'phpmailer524/class.phpmailer.php';
+require 'phpmailer524/class.phpmailer.php';
+require 'phpmailer524/class.smtp.php';
 //include("class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
 
 $app->get('/', function($request,$response) {
@@ -283,6 +283,52 @@ $app->put('/manager/[{idAlumno}]', function($request, $response, $args) {
 		$result->setCode(300);
 		$result->setStatus(CONFLICT);
 		$result->setMessage("Error: ".$e->getMessage());
+	}
+
+	return $this->response->withJson($result);
+});
+
+$app->post('/email', function($request, $response, $args) {	
+	$result = new EmailResult();
+
+	$input = $request->getParsedBody();
+
+	$from = FROM;
+	$password = PASSWORD;
+
+	$result->setAddress(FROM);
+	$result->setPassword(PASSWORD);
+
+	$to = $input['address'];
+	$subject = $input['subject'];
+	$message = $input['message'];
+	$mail = new PHPMailer(true);
+	// the true param means it will throw exceptions on errors, which we need to catch
+	$mail->IsSMTP(); // telling the class to use SMTP
+
+	try {
+	 $mail->SMTPDebug = 0;
+	 $mail->SMTPAuth = true; // enable SMTP authentication
+	 $mail->SMTPSecure = "tls"; // sets the prefix to the server
+	 $mail->Host = "smtp.gmail.com"; // sets GMAIL as the SMTP server
+	 $mail->Port = 587; // set the SMTP port for the GMAIL server
+	 $mail->Username = $from; // GMAIL username
+	 $mail->Password = $password; // GMAIL password
+	 $mail->IsSendmail();
+	 $mail->AddAddress($to); // Receiver email
+	 $mail->AddReplyTo($from, 'David Primenko'); // email to reply
+	 $mail->Subject = $subject; // subject of the message
+	 $mail->AltBody = 'Message in plain text'; // optional - MsgHTML will create an alternate automatically	
+	 $mail->MsgHTML($message); // message in the email
+	 $mail->IsHTML(true);
+	 $mail->Send();
+	 $result->setMessage("Message Sent OK to " . $to);
+	} catch (phpmailerException $e) {
+	 //echo $e->errorMessage(); //Pretty error messages from PHPMailer
+	 $result->setMessage("Error: " . $e->errorMessage());
+	} catch (Exception $e) {
+	 //echo $e->getMessage(); //Boring error messages from anything else!
+	 $result->setMessage("Error: " . $e->getMessage());	 
 	}
 
 	return $this->response->withJson($result);
