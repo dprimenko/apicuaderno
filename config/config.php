@@ -86,6 +86,8 @@ class AlumnosResult {
 
 class EmailResult {
 	var $message;
+	var $address;
+	var $password;
 
 	function getMessage() {
 		return $this->message;
@@ -93,6 +95,22 @@ class EmailResult {
 
 	function setMessage($m) {
 		$this->message = $m;
+	}	
+
+	function getAddress() {
+		return $this->address;
+	}
+
+	function setAddress($a) {
+		$this->address = $a;
+	}
+
+	function getPassword() {
+		return $this->password;
+	}
+
+	function setPassword($p) {
+		$this->password = $p;
 	}
 }
 
