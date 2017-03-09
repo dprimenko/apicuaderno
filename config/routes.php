@@ -288,8 +288,5 @@ $app->put('/manager/[{idAlumno}]', function($request, $response, $args) {
 	return $this->response->withJson($result);
 });
 
-$app->post('/email', function($request, $response, $args) {	
-	
-});
 
 ?>
