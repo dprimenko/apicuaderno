@@ -337,7 +337,7 @@ $app->post('/email', function($request, $response, $args) {
 
 	//Create a new PHPMailer instance
 $result = new EmailResult();
-	
+
 $mail = new PHPMailer;
 //Tell PHPMailer to use SMTP
 $mail->isSMTP();
@@ -386,6 +386,6 @@ $mail->AltBody = 'This is a plain-text message body';
 	}	
 });
 
-return $this->response->withJson($result);*/
+return $this->response->withJson($result);
 
 ?>
